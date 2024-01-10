@@ -6,11 +6,15 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { getAuthSession } from "@/lib/auth";
+import { User2 } from "lucide-react";
+import Link from "next/link";
 
 import React from "react";
+import { DropdownMenuItemLogout } from "./LogoutButton";
 
 export const UserProfile = async () => {
   const session = await getAuthSession();
+  console.log(session);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -19,7 +23,13 @@ export const UserProfile = async () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/profile">
+            <User2 className="mr-2 h-4 w-4" />
+            Profile
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItemLogout />
       </DropdownMenuContent>
     </DropdownMenu>
   );
