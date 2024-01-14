@@ -14,7 +14,7 @@ import { DropdownMenuItemLogout } from "./LogoutButton";
 
 export const UserProfile = async () => {
   const session = await getAuthSession();
-  console.log(session);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

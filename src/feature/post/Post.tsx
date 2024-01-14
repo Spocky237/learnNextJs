@@ -2,7 +2,7 @@ import { PostHome } from "@/src/query/post.query";
 import React from "react";
 import { PostLayout } from "./PostLayout";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Heart, MessageCircle } from "lucide-react";
 
 type PostProps = {
@@ -19,9 +19,13 @@ export const Post = ({ post }: PostProps) => {
         <Button size="icon" variant="ghost">
           <Heart size={20} />
         </Button>
-        <Button size="icon" variant="ghost">
+
+        <Link
+          className={buttonVariants({ variant: "ghost", size: "icon" })}
+          href={`/posts/${post.id}/reply`}
+        >
           <MessageCircle size={20} />
-        </Button>
+        </Link>
       </div>
       <div>
         <Link
@@ -35,7 +39,7 @@ export const Post = ({ post }: PostProps) => {
           className="text-muted-foreground text-sm"
           href={`/posts/${post.id}`}
         >
-          {post._count.replies} likes
+          {post._count.replies} Comments
         </Link>
       </div>
     </PostLayout>

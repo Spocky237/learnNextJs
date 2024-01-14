@@ -17,7 +17,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <Alert className="my-4 gap-2">
+    <Alert className="my-8 gap-2">
       <AlertTriangle></AlertTriangle>
       <AlertTitle>Not logged</AlertTitle>
       <AlertDescription>You must be log to acces this page.</AlertDescription>

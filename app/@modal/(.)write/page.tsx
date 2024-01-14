@@ -7,7 +7,7 @@ export default async function page() {
   const user = await getUser();
   return (
     <div>
-      <WriteModal user={user} createPost={createPost} />
+      <WriteModal path="write" user={user} createPost={createPost} />
     </div>
   );
 }
