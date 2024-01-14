@@ -1,6 +1,7 @@
-import * as React from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
+import * as React from "react";
 import {
   Controller,
   ControllerProps,
@@ -14,17 +15,15 @@ import {
   useFormContext,
 } from "react-hook-form";
 
-import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
-import { Schema, TypeOf, ZodSchema } from "zod";
+import { cn } from "@/lib/utils";
+import { TypeOf, ZodSchema } from "zod";
 
-type FormProps<T extends FieldValues> = Omit<
-  React.ComponentProps<"form">,
-  "onSubmit"
-> & {
+interface FormProps<T extends FieldValues>
+  extends Omit<React.ComponentProps<"form">, "onSubmit"> {
   form: UseFormReturn<T>;
   onSubmit: SubmitHandler<T>;
-};
+}
 
 const Form = <T extends FieldValues>({
   form,
@@ -32,17 +31,15 @@ const Form = <T extends FieldValues>({
   children,
   className,
   ...props
-}: FormProps<T>) => {
-  return (
-    <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} {...props}>
-        <fieldset disabled={form.formState.isSubmitting} className={className}>
-          {children}
-        </fieldset>
-      </form>
-    </FormProvider>
-  );
-};
+}: FormProps<T>) => (
+  <FormProvider {...form}>
+    <form onSubmit={form.handleSubmit(onSubmit)} {...props}>
+      <fieldset disabled={form.formState.isSubmitting} className={className}>
+        {children}
+      </fieldset>
+    </form>
+  </FormProvider>
+);
 
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
@@ -194,35 +191,28 @@ const FormMessage = React.forwardRef<
 });
 FormMessage.displayName = "FormMessage";
 
-type useZodFormProps<T extends ZodSchema> = Exclude<
-  UseFormProps<TypeOf<T>>,
-  "resolver"
-> & {
-  schema: T;
-};
+interface UseZodFormProps<Z extends ZodSchema>
+  extends Exclude<UseFormProps<TypeOf<Z>>, "resolver"> {
+  schema: Z;
+}
 
-const useZodForm = <T extends ZodSchema>({
+const useZodForm = <Z extends ZodSchema>({
   schema,
   ...formProps
-}: useZodFormProps<T>) => {
-  return useForm({
+}: UseZodFormProps<Z>) =>
+  useForm({
     ...formProps,
     resolver: zodResolver(schema),
   });
-};
 
 export {
-  useFormField,
   Form,
-  FormItem,
-  FormLabel,
   FormControl,
   FormDescription,
-  FormMessage,
   FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  useFormField,
+  useZodForm,
 };
-function zodResolver<T extends Schema<any, import("zod").ZodTypeDef, any>>(
-  schema: T
-): import("react-hook-form").Resolver<TypeOf<T>, any> | undefined {
-  throw new Error("Function not implemented.");
-}
