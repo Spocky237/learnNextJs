@@ -4,10 +4,11 @@
 generator client {
   provider = "prisma-client-js"
 }
-
+// prisma/schema.prisma
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 //NextAuth
@@ -93,7 +94,7 @@ model Follow {
   createdAt     DateTime @default(now())
 
   follower       User    @relation("follower",fields: [followerId], references: [id], onDelete: Cascade)
-  followed       User    @relation("followed",fields: [followerId], references: [id], onDelete: Cascade)
+  followed       User    @relation("followed",fields: [followingId], references: [id], onDelete: Cascade)
  }
 
 

@@ -24,7 +24,7 @@ export const PostLayout = ({
 }: PostLayoutProps) => {
   return (
     <div className={"flex w-full flex-row items-start p-4"}>
-      <Avatar>
+      <Avatar size="default">
         {user.image ? (
           <AvatarImage src={user.image} alt={user.username} />
         ) : (
@@ -34,7 +34,7 @@ export const PostLayout = ({
         )}
       </Avatar>
       <div className="ml-4  flex w-full flex-col gap-2">
-        <Link href={`/user/${user.id}`}>
+        <Link href={`/users/${user.id}`}>
           <div className="flex flex-row items-center gap-2">
             <p className="text-sm text-card-foreground mr-auto">
               {user.username}
