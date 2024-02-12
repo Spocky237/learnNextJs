@@ -19,7 +19,7 @@ export const getUser = async (path: string) => {
   const session = await getAuthSession();
 
   if (!session?.user.id) {
-    redirect(`/api/auth/signin?callbackUrl=${path}`);
+    redirect(`/api/auth/signin`);
   }
 
   const user = await prisma.user.findUniqueOrThrow({
