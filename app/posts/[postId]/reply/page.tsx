@@ -15,7 +15,7 @@ export default async function PostReply({
     postId: string;
   };
 }) {
-  const user = await getUser();
+  const user = await getUser("/post");
   const post = await getPost(params.postId, user.id);
 
   //const post
