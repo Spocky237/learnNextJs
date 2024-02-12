@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import { postSelectQuery } from "./post.query";
 import { cache } from "react";
+import { redirect } from "next/navigation";
 
 const userQuery = {
   id: true,
@@ -14,11 +15,11 @@ const userQuery = {
   link: true,
 } satisfies Prisma.UserSelect;
 
-export const getUser = async () => {
+export const getUser = async (path: string) => {
   const session = await getAuthSession();
 
   if (!session?.user.id) {
-    throw new Error("User not found");
+    redirect(`/api/auth/signin?callbackUrl=${path}`);
   }
 
   const user = await prisma.user.findUniqueOrThrow({
@@ -72,8 +73,8 @@ export const getUserProfile = cache(async (userId: string) => {
 export const getUserEdit = async () => {
   const session = await getAuthSession();
 
-  if (!session) {
-    throw new Error("No session");
+  if (!session?.user.id) {
+    redirect("/api/auth/signin");
   }
 
   return prisma.user.findUniqueOrThrow({

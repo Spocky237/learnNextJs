@@ -66,7 +66,7 @@ export const ProfileForm = ({ user, onSubmit }: ProfileFormProps) => {
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input placeholder="Zuck" {...field} />
-              </FormControl>{" "}
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}

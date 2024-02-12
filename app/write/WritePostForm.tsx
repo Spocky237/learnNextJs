@@ -30,6 +30,7 @@ export const WritePostForm = ({ user, onSubmit }: WritePostFormProps) => {
   const form = useZodForm({
     schema: Schema,
   });
+  
   const router = useRouter();
   return (
     <PostLayout user={user} className="flex flex-col gap-2">

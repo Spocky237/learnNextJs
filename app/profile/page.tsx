@@ -3,7 +3,7 @@ import { getUserProfile } from "@/src/query/user.query";
 import * as React from "react";
 import { Profile } from "../users/[userId]/Profile";
 import { Post } from "@/src/feature/post/Post";
-import { notFound } from "next/navigation";
+import { notFound, redirect, usePathname } from "next/navigation";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 
@@ -11,7 +11,8 @@ export default async function ProfilePage() {
   const session = await getAuthSession();
 
   if (!session?.user.id) {
-    notFound();
+    const path = "/profile";
+    redirect(`/api/auth/signin?callbackUrl=${path}`);
   }
 
   const user = await getUserProfile(session?.user.id);

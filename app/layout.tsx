@@ -23,11 +23,10 @@ export default function RootLayout({ children, modal }: LayoutProps) {
     <html lang="fr" className="h-full">
       <body className={clsx(inter.className, "bg-background h-full")}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="flex flex-col h-full">
-            <Header />
-            <div className="flex-1 w-5/6 m-auto py-12">{children}</div>
-            <Footer />
-          </div>
+          <Header />
+          <div className="flex-1 w-5/6 m-auto py-12">{children}</div>
+          <Footer />
+
           {modal}
         </ThemeProvider>
       </body>
