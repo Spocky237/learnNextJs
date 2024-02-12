@@ -4,7 +4,7 @@ import React from "react";
 import { WriteModal } from "./WriteModal";
 
 export default async function page() {
-  const user = await getUser();
+  const user = await getUser("/write");
   return (
     <div>
       <WriteModal path="write" user={user} createPost={createPost} />

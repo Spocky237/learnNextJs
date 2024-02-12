@@ -6,7 +6,7 @@ import React from "react";
 import { ReplyModal } from "./ReplyModal";
 
 export default async function Page({ params }: { params: { postId: string } }) {
-  const user = await getUser();
+  const user = await getUser("/");
   console.log(params.postId);
   return (
     <div>

@@ -11,7 +11,7 @@ export const createReply = async (
 ) => {
   // create a reply
 
-  const user = await getUser();
+  const user = await getUser("/reply");
 
   const post = await prisma.post.create({
     data: {
